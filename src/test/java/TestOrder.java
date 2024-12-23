@@ -1,4 +1,3 @@
-import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,8 +8,6 @@ import org.openqa.selenium.WebDriver;
 import ru.praktikum.services.qa.scooter.page.objects.AboutRent;
 import ru.praktikum.services.qa.scooter.page.objects.ForWhomScooter;
 import ru.praktikum.services.qa.scooter.page.objects.HomePage;
-
-import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(Parameterized.class)
 public class TestOrder {
