@@ -1,7 +1,6 @@
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import pageObjects.ForWhomScooter;
-import pageObjects.HomePage;
+import ru.praktikum.services.qa.scooter.page.objects.ForWhomScooter;
+import ru.praktikum.services.qa.scooter.page.objects.HomePage;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.Test;
@@ -12,6 +11,8 @@ import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(Parameterized.class)
 public class TestAccordion {
+    private static final String DEFAULT_BROWSER_NAME = "CHROME";
+    private static final String BROWSER_NAME_ENV_VARIABLE = "BROWSER_NAME";
     private final int number;
     private final String expendHeader;
     private final String expendPanel;
@@ -40,18 +41,21 @@ public class TestAccordion {
 
     @Before
     public void before() {
-        driver = new ChromeDriver();
-    }
-
-    @Test
-    public void testAccordionAndOrderButtonBelow(){
+        String browserName = System.getenv(BROWSER_NAME_ENV_VARIABLE);
+        driver =
+                WebDriverFactory.createForName(browserName != null ? browserName : DEFAULT_BROWSER_NAME);
         HomePage homePage = new HomePage(driver);
         homePage.open();
         homePage.clickCookiesButton();
+    }
+
+    @Test
+    public void testAccordion(){
+        HomePage homePage = new HomePage(driver);
         MatcherAssert.assertThat(homePage.textAccordionHeading(number), is(expendHeader));
         homePage.enterAccordionPanel(number);
         MatcherAssert.assertThat(homePage.openAccordionPanel(number), is(expendPanel));
-        homePage.clickOrderButtonBelow();
+        homePage.clickOrderButtonBelow(); // убрать
         ForWhomScooter forWhomScooter = new ForWhomScooter(driver);
         forWhomScooter.loadingPageForWhomScooter();
     }

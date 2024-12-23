@@ -1,4 +1,4 @@
-package pageObjects;
+package ru.praktikum.services.qa.scooter.page.objects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -32,7 +32,7 @@ public class AboutRent {
     // локатор для кнопки "ДА"
     private static final By YES_BUTTON = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Да']");
     // локатор текста "Заказ оформлен"
-    private static final By ORDER_PLACED = By.cssSelector("Order_ModalHeader__3FDaJ");
+    private static final By ORDER_PLACED = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Посмотреть статус']");
     private WebDriver driver;
 
     public AboutRent(WebDriver driver) {
@@ -47,15 +47,10 @@ public class AboutRent {
         return this;
     }
 
-    // метод нажатия и ввода в поле "Когда привезти самокат"
-    public AboutRent inputDate(String date){
+    // метод заполнения поля "Когда привезти самокат", выбор срока и цвета, заполнения поля "Комментарий"
+    public AboutRent fillingInFieldsOnPageAboutRent(String date, String term, String color, String comment){
         driver.findElement(FIELD_DATE).click();
         driver.findElement(FIELD_DATE).sendKeys(date);
-        return this;
-    }
-
-    // метод нажатия и выбора срока из выпадающего списка
-    public AboutRent choiceTerm(String term){
         driver.findElement(FIELD_TERM).click();
         List<WebElement> elementsOption = driver.findElements(PANEL_FIELD_TERM);
         for (WebElement element : elementsOption) {
@@ -64,22 +59,12 @@ public class AboutRent {
                 break;
             }
         }
-        return this;
-    }
-
-    // метод выбора чекбокса "Цвет"
-    public AboutRent choiceColor(String color){
         if (Objects.equals(color, COLOR_BLACK)) {
             driver.findElement(CHECKBOX_COLOR_BLACK).click();
         }
         else {
             driver.findElement(CHECKBOX_COLOR_GREY).click();
         }
-        return this;
-    }
-
-    // метод нажатия и ввода в поле "Комментарий"
-    public AboutRent inputComment(String comment){
         driver.findElement(FIELD_COMMENT).click();
         driver.findElement(FIELD_COMMENT).sendKeys(comment);
         return this;

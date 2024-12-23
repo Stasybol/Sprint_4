@@ -1,4 +1,4 @@
-package pageObjects;
+package ru.praktikum.services.qa.scooter.page.objects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -39,38 +39,17 @@ public class ForWhomScooter {
         driver.findElement(PAGE_FOR_WHOM_SCOOTER).isDisplayed();
         return this;
     }
-
-    // метод нажатия и ввода в поле "Имя"
-    public ForWhomScooter inputName(String name){
+    // метод для заполнения полей "Имя", "Фамилия", "Адрес", "Станция метро" и "Телефон"
+    public ForWhomScooter fillingInFieldsOnPageForWhomScooter(String name, String surname, String address, String metro, String phone){
         driver.findElement(FIELD_NAME).click();
         driver.findElement(FIELD_NAME).sendKeys(name);
-        return this;
-    }
-
-    // метод нажатия и ввода в поле "Фамилия"
-    public ForWhomScooter inputSurname(String surname){
         driver.findElement(FIELD_SURNAME).click();
         driver.findElement(FIELD_SURNAME).sendKeys(surname);
-        return this;
-    }
-
-    // метод нажатия и ввода в поле "Адрес"
-    public ForWhomScooter inputAddress(String address){
         driver.findElement(FIELD_ADDRESS).click();
         driver.findElement(FIELD_ADDRESS).sendKeys(address);
-        return this;
-    }
-
-    // метод нажатия, ввода и выбора станции в поле "Станция метро"
-    public ForWhomScooter inputMetro(String metro){
         driver.findElement(FIELD_METRO_STATION).click();
         driver.findElement(FIELD_METRO_STATION).sendKeys(metro);
         driver.findElement(CHOICE_METRO_STATION).click();
-        return this;
-    }
-
-    // метод нажатия и ввода в поле "Телефон"
-    public ForWhomScooter inputPhone(String phone){
         driver.findElement(FIELD_PHONE).click();
         driver.findElement(FIELD_PHONE).sendKeys(phone);
         return this;

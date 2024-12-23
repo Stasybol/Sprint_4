@@ -1,5 +1,6 @@
-package pageObjects;
+package ru.praktikum.services.qa.scooter.page.objects;
 
+import dev.failsafe.internal.util.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,6 +14,8 @@ import java.time.Duration;
 public class HomePage {
     // константа url страницы
     public static final String PAGE_URL = "https://qa-scooter.praktikum-services.ru/";
+    // локатор для страницы "Для кого самокат"
+    private static final By PAGE_FOR_WHOM_SCOOTER = By.xpath(".//div[@class='Order_Header__BZXOb']");
     // локатор для кнопки "Заказать" вверху экрана
     private static final By ORDER_BUTTON_ABOVE = By.className("Button_Button__ra12g");
     // локатор для кнопки "Заказать" внизу экрана
@@ -32,17 +35,17 @@ public class HomePage {
     }
 
     // метод для нажатия на кнопку "Заказать" вверху экрана
-    public HomePage clickOrderButtonAbove() {
+    public boolean clickOrderButtonAbove() {
         driver.findElement(ORDER_BUTTON_ABOVE).click();
-        return this;
+        return driver.findElement(PAGE_FOR_WHOM_SCOOTER).isDisplayed();
     }
 
     // метод скролла и нажатия на кнопку "Заказать" внизу экрана
-    public HomePage clickOrderButtonBelow() {
+    public boolean clickOrderButtonBelow() {
         WebElement element = driver.findElement(ORDER_BUTTON_BELOW);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
         driver.findElement(ORDER_BUTTON_BELOW).click();
-        return this;
+        return driver.findElement(PAGE_FOR_WHOM_SCOOTER).isDisplayed();
     }
 
     // метод открытия сайта
@@ -50,12 +53,6 @@ public class HomePage {
         driver.get(PAGE_URL);
         return this;
     }
-
-//    // метод нахождения всплывающего окна о принятии кук
-//    public boolean isCookiesButton() {
-//        driver.findElement(COOKIES_BUTTON).isEnabled();
-//        return true;
-//    }
 
     // метод нажатия на кнопку "да все привыкли" для закрытия всплывающего окна о принятии кук
     public HomePage clickCookiesButton() {
@@ -81,6 +78,4 @@ public class HomePage {
                 .until(ExpectedConditions.visibilityOf(driver.findElements(ACCORDION_ITEM_PANEL).get(number)));
         return this.driver.findElements(ACCORDION_ITEM_PANEL).get(number).getText();
     }
-
-
 }
