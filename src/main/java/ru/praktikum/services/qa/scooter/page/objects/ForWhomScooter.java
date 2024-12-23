@@ -37,17 +37,38 @@ public class ForWhomScooter {
         driver.findElement(PAGE_FOR_WHOM_SCOOTER).isDisplayed();
         return this;
     }
-    // метод для заполнения полей "Имя", "Фамилия", "Адрес", "Станция метро" и "Телефон"
-    public ForWhomScooter fillingInFieldsOnPageForWhomScooter(String name, String surname, String address, String metro, String phone){
+
+    // метод нажатия и заполнения поля "Имя"
+    public ForWhomScooter inputName(String name) {
         driver.findElement(FIELD_NAME).click();
         driver.findElement(FIELD_NAME).sendKeys(name);
+        return this;
+    }
+
+    // метод нажатия и заполнения поля "Фамилия"
+    public ForWhomScooter inputSurname(String surname){
         driver.findElement(FIELD_SURNAME).click();
         driver.findElement(FIELD_SURNAME).sendKeys(surname);
+        return this;
+    }
+
+    // метод нажатия и заполнения поля "Адрес"
+    public ForWhomScooter inputAddress(String address){
         driver.findElement(FIELD_ADDRESS).click();
         driver.findElement(FIELD_ADDRESS).sendKeys(address);
+        return this;
+    }
+
+    // метод нажатия и заполнения поля "Станция метро"
+    public ForWhomScooter inputMetro(String metro){
         driver.findElement(FIELD_METRO_STATION).click();
         driver.findElement(FIELD_METRO_STATION).sendKeys(metro);
         driver.findElement(CHOICE_METRO_STATION).click();
+        return this;
+    }
+
+    // метод нажатия и заполнения поля "Станция метро"
+    public ForWhomScooter inputPhone(String phone){
         driver.findElement(FIELD_PHONE).click();
         driver.findElement(FIELD_PHONE).sendKeys(phone);
         return this;
