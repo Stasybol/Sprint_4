@@ -4,12 +4,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class WebDriverFactory {
     public static WebDriver createForName(String browserName) {
-        if (browserName.equals("FIREFOX")) {
-            return new FirefoxDriver();
-        } else if (browserName.equals("CHROME")) {
+        if (browserName.equals("CHROME")) {
             return new ChromeDriver();
         } else {
-            throw new RuntimeException("Нераспознанный браузер: " + browserName);
+            return new FirefoxDriver();
         }
     }
 }
