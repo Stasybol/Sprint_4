@@ -46,10 +46,15 @@ public class AboutRent {
         return this;
     }
 
-    // метод заполнения поля "Когда привезти самокат", выбор срока и цвета, заполнения поля "Комментарий"
-    public AboutRent fillingInFieldsOnPageAboutRent(String date, String term, String color, String comment){
+    // метод нажатия и заполнения поля "Когда привезти самокат"
+    public AboutRent inputDate(String date) {
         driver.findElement(FIELD_DATE).click();
         driver.findElement(FIELD_DATE).sendKeys(date);
+        return this;
+    }
+
+    // метод нажатия и выбора срока аренды
+    public AboutRent choiceTerm(String term) {
         driver.findElement(FIELD_TERM).click();
         List<WebElement> elementsOption = driver.findElements(PANEL_FIELD_TERM);
         for (WebElement element : elementsOption) {
@@ -58,12 +63,22 @@ public class AboutRent {
                 break;
             }
         }
+        return this;
+    }
+
+    // метод нажатия и выбора чекбокса "Цвет"
+    public AboutRent choiceColor(String color) {
         if (Objects.equals(color, COLOR_BLACK)) {
             driver.findElement(CHECKBOX_COLOR_BLACK).click();
         }
         else {
             driver.findElement(CHECKBOX_COLOR_GREY).click();
         }
+        return this;
+    }
+
+    // метод нажатия и заполнения поля "Комментарий"
+    public AboutRent inputComment(String comment) {
         driver.findElement(FIELD_COMMENT).click();
         driver.findElement(FIELD_COMMENT).sendKeys(comment);
         return this;
