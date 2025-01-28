@@ -55,7 +55,6 @@ public class TestAccordion {
         MatcherAssert.assertThat(homePage.textAccordionHeading(number), is(expendHeader));
         homePage.enterAccordionPanel(number);
         MatcherAssert.assertThat(homePage.openAccordionPanel(number), is(expendPanel));
-        homePage.clickOrderButtonBelow(); // убрать
         ForWhomScooter forWhomScooter = new ForWhomScooter(driver);
         forWhomScooter.loadingPageForWhomScooter();
     }

@@ -61,7 +61,7 @@ public class HomePage {
     public String textAccordionHeading(int number) {
         WebElement element = driver.findElements(ACCORDION_ITEM_HEADING).get(number);
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
-        return this.driver.findElements(ACCORDION_ITEM_HEADING).get(number).getText();
+        return driver.findElements(ACCORDION_ITEM_HEADING).get(number).getText();
     }
 
     // метод открытия аккордеонной панели
@@ -73,6 +73,6 @@ public class HomePage {
     public String openAccordionPanel(int number) {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOf(driver.findElements(ACCORDION_ITEM_PANEL).get(number)));
-        return this.driver.findElements(ACCORDION_ITEM_PANEL).get(number).getText();
+        return driver.findElements(ACCORDION_ITEM_PANEL).get(number).getText();
     }
 }
