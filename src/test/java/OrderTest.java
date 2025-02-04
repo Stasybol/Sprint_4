@@ -10,7 +10,7 @@ import ru.praktikum.services.qa.scooter.page.objects.ForWhomScooter;
 import ru.praktikum.services.qa.scooter.page.objects.HomePage;
 
 @RunWith(Parameterized.class)
-public class TestOrder {
+public class OrderTest {
     private static final String DEFAULT_BROWSER_NAME = "CHROME";
     private static final String BROWSER_NAME_ENV_VARIABLE = "BROWSER_NAME";
     private final String name;
@@ -25,7 +25,7 @@ public class TestOrder {
 
     private WebDriver driver;
 
-    public TestOrder(String name, String surname, String address, String metro, String phone, String date, String term, String color, String comment) {
+    public OrderTest(String name, String surname, String address, String metro, String phone, String date, String term, String color, String comment) {
         this.name = name;
         this.surname = surname;
         this.address = address;
