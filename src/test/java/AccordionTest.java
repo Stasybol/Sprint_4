@@ -10,7 +10,7 @@ import org.hamcrest.MatcherAssert;
 import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(Parameterized.class)
-public class TestAccordion {
+public class AccordionTest {
     private static final String DEFAULT_BROWSER_NAME = "CHROME";
     private static final String BROWSER_NAME_ENV_VARIABLE = "BROWSER_NAME";
     private final int number;
@@ -19,7 +19,7 @@ public class TestAccordion {
 
     private WebDriver driver;
 
-    public TestAccordion(int number, String expendHeader, String expendPanel) {
+    public AccordionTest(int number, String expendHeader, String expendPanel) {
         this.number = number;
         this.expendHeader = expendHeader;
         this.expendPanel = expendPanel;
@@ -55,7 +55,6 @@ public class TestAccordion {
         MatcherAssert.assertThat(homePage.textAccordionHeading(number), is(expendHeader));
         homePage.enterAccordionPanel(number);
         MatcherAssert.assertThat(homePage.openAccordionPanel(number), is(expendPanel));
-        homePage.clickOrderButtonBelow(); // убрать
         ForWhomScooter forWhomScooter = new ForWhomScooter(driver);
         forWhomScooter.loadingPageForWhomScooter();
     }
