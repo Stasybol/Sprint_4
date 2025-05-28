@@ -1,5 +1,4 @@
 import org.openqa.selenium.WebDriver;
-import ru.praktikum.services.qa.scooter.page.objects.ForWhomScooter;
 import ru.praktikum.services.qa.scooter.page.objects.HomePage;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -7,17 +6,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.After;
 import org.hamcrest.MatcherAssert;
+import ru.praktikum.services.qa.scooter.factory.WebDriverFactory;
+
 import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(Parameterized.class)
 public class AccordionTest {
-    private static final String DEFAULT_BROWSER_NAME = "CHROME";
-    private static final String BROWSER_NAME_ENV_VARIABLE = "BROWSER_NAME";
     private final int number;
     private final String expendHeader;
     private final String expendPanel;
 
     private WebDriver driver;
+    private HomePage homePage;
 
     public AccordionTest(int number, String expendHeader, String expendPanel) {
         this.number = number;
@@ -41,22 +41,17 @@ public class AccordionTest {
 
     @Before
     public void before() {
-        String browserName = System.getenv(BROWSER_NAME_ENV_VARIABLE);
-        driver =
-                WebDriverFactory.createForName(browserName != null ? browserName : DEFAULT_BROWSER_NAME);
-        HomePage homePage = new HomePage(driver);
+        driver = WebDriverFactory.createDriver();
+        homePage = new HomePage(driver);
         homePage.open();
         homePage.clickCookiesButton();
     }
 
     @Test
     public void testAccordion(){
-        HomePage homePage = new HomePage(driver);
         MatcherAssert.assertThat(homePage.textAccordionHeading(number), is(expendHeader));
         homePage.enterAccordionPanel(number);
         MatcherAssert.assertThat(homePage.openAccordionPanel(number), is(expendPanel));
-        ForWhomScooter forWhomScooter = new ForWhomScooter(driver);
-        forWhomScooter.loadingPageForWhomScooter();
     }
 
     @After

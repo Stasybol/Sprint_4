@@ -39,11 +39,10 @@ public class AboutRent {
     }
 
     // метод загрузки страницы "Про аренду"
-    public AboutRent loadingPageAboutRent(){
+    public boolean loadingPageAboutRent(){
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOf(driver.findElement(PAGE_ABOUT_RENT)));
-        driver.findElement(PAGE_ABOUT_RENT).isDisplayed();
-        return this;
+        return driver.findElement(PAGE_ABOUT_RENT).isDisplayed();
     }
 
     // метод нажатия и заполнения поля "Когда привезти самокат"
@@ -87,6 +86,16 @@ public class AboutRent {
     // метод нажатия на кнопку "Заказать"
     public AboutRent clickOrderButton(){
         driver.findElement(ORDER_BUTTON).click();
+        return this;
+    }
+
+    // метод объединяет заполнение полей Когда привезти самокат, Срок аренды, Цвет, Комментарий и нажатие на кнопку Заказать
+    public AboutRent fillingFieldsAndClickingOrder(String date, String term, String color, String comment){
+        inputDate(date);
+        choiceTerm(term);
+        choiceColor(color);
+        inputComment(comment);
+        clickOrderButton();
         return this;
     }
 
