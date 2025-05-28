@@ -7,10 +7,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import static ru.praktikum.services.qa.scooter.constants.Url.PAGE_URL;
 
 public class HomePage {
-    // константа url страницы
-    public static final String PAGE_URL = "https://qa-scooter.praktikum-services.ru/";
     // локатор для страницы "Для кого самокат"
     private static final By PAGE_FOR_WHOM_SCOOTER = By.xpath(".//div[@class='Order_Header__BZXOb']");
     // локатор для кнопки "Заказать" вверху экрана
@@ -69,6 +68,7 @@ public class HomePage {
         driver.findElements(ACCORDION_ITEM_HEADING).get(number).click();
         return this;
     }
+
     // метод ожидания и возврата текста в аккордеонной панели
     public String openAccordionPanel(int number) {
         new WebDriverWait(driver, Duration.ofSeconds(5))

@@ -8,11 +8,10 @@ import org.openqa.selenium.WebDriver;
 import ru.praktikum.services.qa.scooter.page.objects.AboutRent;
 import ru.praktikum.services.qa.scooter.page.objects.ForWhomScooter;
 import ru.praktikum.services.qa.scooter.page.objects.HomePage;
+import ru.praktikum.services.qa.scooter.factory.WebDriverFactory;
 
 @RunWith(Parameterized.class)
 public class OrderTest {
-    private static final String DEFAULT_BROWSER_NAME = "CHROME";
-    private static final String BROWSER_NAME_ENV_VARIABLE = "BROWSER_NAME";
     private final String name;
     private final String surname;
     private final String address;
@@ -24,6 +23,9 @@ public class OrderTest {
     private final String comment;
 
     private WebDriver driver;
+    private HomePage homePage;
+    private ForWhomScooter forWhomScooter;
+    private AboutRent aboutRent;
 
     public OrderTest(String name, String surname, String address, String metro, String phone, String date, String term, String color, String comment) {
         this.name = name;
@@ -47,41 +49,30 @@ public class OrderTest {
 
     @Before
     public void before() {
-        String browserName = System.getenv(BROWSER_NAME_ENV_VARIABLE);
-        driver =
-                WebDriverFactory.createForName(browserName != null ? browserName : DEFAULT_BROWSER_NAME);
-        HomePage homePage = new HomePage(driver);
+        driver = WebDriverFactory.createDriver();
+        homePage = new HomePage(driver);
         homePage.open();
         homePage.clickCookiesButton();
     }
 
     @Test
     public void testOrderButtonBelow() {
-        HomePage homePage = new HomePage(driver);
         homePage.clickOrderButtonBelow();
         Assert.assertTrue(homePage.clickOrderButtonBelow());
     }
 
     @Test
     public void testOrderButtonAboveAndSuccessOrder(){
-        HomePage homePage = new HomePage(driver);
         homePage.clickOrderButtonAbove();
         Assert.assertTrue(homePage.clickOrderButtonAbove());
-        ForWhomScooter forWhomScooter = new ForWhomScooter(driver);
+
+        forWhomScooter = new ForWhomScooter(driver);
         forWhomScooter.loadingPageForWhomScooter();
-        forWhomScooter.inputName(name);
-        forWhomScooter.inputSurname(surname);
-        forWhomScooter.inputAddress(address);
-        forWhomScooter.inputMetro(metro);
-        forWhomScooter.inputPhone(phone);
-        forWhomScooter.clickNextButton();
-        AboutRent aboutRent = new AboutRent(driver);
-        aboutRent.loadingPageAboutRent();
-        aboutRent.inputDate(date);
-        aboutRent.choiceTerm(term);
-        aboutRent.choiceColor(color);
-        aboutRent.inputComment(comment);
-        aboutRent.clickOrderButton();
+        forWhomScooter.fillingFieldsAndClickingNext(name, surname, address, metro, phone);
+        aboutRent = new AboutRent(driver);
+        Assert.assertTrue(aboutRent.loadingPageAboutRent());
+
+        aboutRent.fillingFieldsAndClickingOrder(date, term, color, comment);
         aboutRent.clickYesButton();
         Assert.assertTrue(aboutRent.displayedOrderPlaced());
     }
